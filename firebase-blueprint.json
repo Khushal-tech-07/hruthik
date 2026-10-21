@@ -1,0 +1,45 @@
+{
+  "entities": {
+    "Transaction": {
+      "title": "Transaction",
+      "description": "Daily sale transaction recorded by the shopkeeper",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "timestamp": { "type": "number" },
+        "dateStr": { "type": "string" },
+        "timeStr": { "type": "string" },
+        "description": { "type": "string", "maxLength": 500 },
+        "gpayAmount": { "type": "number" },
+        "cashAmount": { "type": "number" },
+        "totalAmount": { "type": "number" }
+      },
+      "required": ["userId", "timestamp", "dateStr", "timeStr", "description", "gpayAmount", "cashAmount", "totalAmount"]
+    },
+    "UserProfile": {
+      "title": "UserProfile",
+      "description": "Profile settings and shop metadata for authenticated user",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "displayName": { "type": "string", "maxLength": 100 },
+        "email": { "type": "string", "maxLength": 200 },
+        "photoURL": { "type": "string", "maxLength": 500 },
+        "shopName": { "type": "string", "maxLength": 100 },
+        "whatsappNumber": { "type": "string", "maxLength": 20 }
+      },
+      "required": ["uid", "email"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "UserProfile",
+      "description": "User profile document storing shop settings"
+    },
+    "/users/{userId}/transactions/{transactionId}": {
+      "schema": "Transaction",
+      "description": "Transactions logged by the shopkeeper"
+    }
+  }
+}
